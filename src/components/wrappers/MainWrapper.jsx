@@ -49,7 +49,7 @@ const MainWrapper = () => {
           {!countriesLoading && !error && (
             <>
             {filter.value != '' && (
-                <DataSummary region={filter.name}/>
+                <DataSummary region={filter.name} data={countriesData}/>
             )}
             <CountriesGrid countriesData={countriesData}/>
          </>
