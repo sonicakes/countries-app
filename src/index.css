@@ -1,0 +1,35 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-nunito: "Nunito Sans", sans-serif;
+
+  /* - White (Dark Mode Text & Light Mode Elements): hsl(0, 100%, 100%) */
+
+  /* teal highlight */
+  --color-teal-primary: #0D9488;
+
+  /* blue */
+  /* dark mode elements */
+  --color-blue-900: hsl(209, 23%, 22%);
+  /* dark mode bg */
+  --color-blue-950: hsl(207, 26%, 17%);
+
+
+  /* grey */
+  /* light mode text */
+  --color-grey-950: hsl(200, 15%, 8%);
+  /* light mode input */
+  --color-grey-400: hsl(0, 0%, 50%);
+  /* light mode bg */
+  --color-grey-50: hsl(0, 0%, 99%); 
+}
+
+@layer utilities {
+  .filter-teal {
+    filter: invert(42%) sepia(87%) saturate(465%) hue-rotate(127deg) brightness(91%) contrast(92%);
+  }
+}
+
+body {
+  @apply font-nunito text-base;
+}
