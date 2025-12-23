@@ -1,11 +1,12 @@
 import SearchInput from "../ui/SearchInput";
 import SelectDropdown from "../ui/SelectDropdown";
-const FilteringTools = () => {
+
+const FilteringTools = ({filter, handleChange}) => {
   return (
     <>
       <div className="flex justify-between gap-4 items-center py-5">
         <SearchInput placeholder="search for a country..." />
-        <SelectDropdown />
+        <SelectDropdown filter={filter} handleChange={handleChange}/>
       </div>
     </>
   );
