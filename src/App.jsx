@@ -2,6 +2,7 @@ import Nav from "./components/layout/Nav";
 import map from "./assets/map.png";
 import FilteringTools from "./components/filtering/FilteringTools";
 import { useState, useEffect } from "react";
+import CountriesGrid from "./components/layout/CountriesGrid";
 
 const App = () => {
   const [countriesData, setCountriesData] = useState([]);
@@ -45,11 +46,7 @@ const App = () => {
 
           <main>
             {!countriesLoading && !error && (
-              <div className="grid grid-cols-4 gap-4">
-                {countriesData.map((country) => (
-                  <div key={country.cca2}>{country.name.common} </div>
-                ))}
-              </div>
+           <CountriesGrid countriesData={countriesData}/>
             )}
             {countriesLoading && <p>loading...</p>}
           </main>

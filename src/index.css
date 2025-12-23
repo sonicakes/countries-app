@@ -22,6 +22,10 @@
   --color-grey-400: hsl(0, 0%, 50%);
   /* light mode bg */
   --color-grey-50: hsl(0, 0%, 99%); 
+
+
+  /* hover */
+  --color-hover-card-light: hsl(207, 26%, 96%);
 }
 
 @layer utilities {
