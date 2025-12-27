@@ -10,16 +10,17 @@ const MainWrapper = () => {
   const [countriesLoading, setCountriesLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState({ name: "Filter by region", value: "" });
-  const apiEnd = filter.value ==='' ? '/independent?status=true' : `/region/${filter.value}`;
+  const apiEnd =
+    filter.value === ""
+      ? "/independent?status=true"
+      : `/region/${filter.value}`;
 
   useEffect(() => {
-
     const fetchCountries = async () => {
       try {
         const res = await fetch(`${API_URL}${apiEnd}`);
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
-        console.log(data);
         setCountriesData(data);
       } catch (err) {
         setError(err.message);
@@ -33,27 +34,18 @@ const MainWrapper = () => {
 
   return (
     <>
-      <header className="bg-white relative z-100 shadow-md">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8 ">
-          <Nav />
-        </div>
-      </header>
-
       <div className="mx-auto max-w-5xl px-6 lg:px-8 relative z-100 pb-8">
-        <FilteringTools 
-            filter={filter} 
-            handleChange={setFilter}
-        />
+        <FilteringTools filter={filter} handleChange={setFilter} />
 
         <main>
           {!countriesLoading && !error && (
             <>
-            {filter.value != '' && (
-                <DataSummary region={filter.name} data={countriesData}/>
-            )}
-            <CountriesGrid countriesData={countriesData}/>
-         </>
-         )}
+              {filter.value != "" && (
+                <DataSummary region={filter.name} data={countriesData} />
+              )}
+              <CountriesGrid countriesData={countriesData} />
+            </>
+          )}
           {countriesLoading && <p>loading...</p>}
         </main>
       </div>

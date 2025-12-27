@@ -1,5 +1,8 @@
+import { Link } from "react-router";
+
 const CountryCard = ({ country }) => {
   return (
+     <Link to={`/country/${country.name.common}`}>
     <div className="bg-white hover:bg-hover-card-light cursor-pointer border border-transparent transition-all hover:border-teal-primary shadow-md rounded-lg">
       <img
         src={country.flags.svg}
@@ -21,6 +24,7 @@ const CountryCard = ({ country }) => {
         )}
       </div>
     </div>
+    </Link>
   );
 };
 
