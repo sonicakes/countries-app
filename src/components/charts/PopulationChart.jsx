@@ -1,6 +1,4 @@
 import { Bar } from "react-chartjs-2";
-//TODO: adapt data to only display 10 top countries, no need for all of them
-//adjust bar chart to be larger( indiv.cols/bars esp. )
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -20,12 +18,20 @@ ChartJS.register(
   Legend
 );
 
+ChartJS.defaults.font.family = "Nunito Sans, sans-serif";
+ChartJS.defaults.font.size = 14;
+ChartJS.defaults.color = "hsl(200, 15%, 8%)";
+
 const PopulationChart = ({ countriesData, region }) => {
-  const countriesPopulation = countriesData.map((country) => {
+  const topTenCountries = [...countriesData]
+    .sort((a, b) => b.population - a.population)
+    .slice(0, 10);
+
+  const countriesPopulation = topTenCountries.map((country) => {
     return country.population;
   });
 
-  const countriesNames = countriesData.map((country) => {
+  const countriesNames = topTenCountries.map((country) => {
     return country.name.common;
   });
 
@@ -35,9 +41,11 @@ const PopulationChart = ({ countriesData, region }) => {
       {
         label: "Population",
         data: countriesPopulation,
-        backgroundColor: "rgba(54, 162, 235, 0.5)",
-        borderColor: "rgba(54, 162, 235, 1)",
-        borderWidth: 1,
+        backgroundColor: "rgba(13, 148, 136, 0.5)",
+        borderColor: "rgba(13, 148, 136, 0.8)",
+        borderWidth: 0.5,
+        barThickness: 25,
+        maxBarThickness: 30,
       },
     ],
   };
@@ -53,17 +61,24 @@ const PopulationChart = ({ countriesData, region }) => {
     },
     plugins: {
       legend: {
-        position: "top",
+        display: false,
       },
       title: {
         display: true,
-        text: `Population in ${region}`,
+        font: {
+          size: 20,
+          weight: "bold",
+        },
+        padding: {
+          bottom: 20,
+        },
+        text: `Top 10 Countries by Population in ${region}`,
       },
     },
   };
 
   return (
-    <div style={{ width: "100%", height: "400px" }}>
+    <div style={{ width: "100%", height: "500px", margin: "40px auto" }}>
       <Bar data={data} options={options} />
     </div>
   );
