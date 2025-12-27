@@ -26,8 +26,10 @@ const CountryDetailsPage = () => {
   }, [name]);
 
   const cioc = country && country.cioc.toLowerCase();
-  const nativeName = country && country.name.nativeName[cioc].common;
-  console.log(nativeName);
+  const langCode = country && Object.keys(country.name.nativeName)[0];
+  const nativeName = country && country.name.nativeName[langCode].common;
+
+  // Loop through each currency entry
   return (
     <>
       <div className="coin-details-container">
@@ -38,7 +40,7 @@ const CountryDetailsPage = () => {
         {!loading && !error && (
           <>
             <div>
-              <h1 className="font-bold text-2xl">{country.name.common}</h1>
+              <h1 className="font-bold text-2xl">{country?.name?.common}</h1>
               <div className="flex gap-2">
                 <div>
                   <div>
@@ -47,36 +49,47 @@ const CountryDetailsPage = () => {
                   </div>
                   <div>
                     <span className="font-bold pr-2">Population:</span>
-                    {country.population && country.population}
+                    {country.population && country.population.toLocaleString()}
                   </div>
                   <div>
                     <span className="font-bold pr-2">Region:</span>
-                    {nativeName && nativeName}
+                    {country.region && country.region}
                   </div>
                   <div>
                     <span className="font-bold pr-2">Sub Region:</span>
-                    {country.population && country.population}
+                    {country.subregion && country.subregion}
                   </div>
                   <div>
                     <span className="font-bold pr-2">Capital:</span>
-                    {country.population && country.population}
+                    {country.capital && country.capital}
                   </div>
                 </div>
                 <div>
-                         <div>
-                    <span className="font-bold pr-2">Top Level Domain:</span>
-                    {nativeName && nativeName}
-                  </div>
                   <div>
-                    <span className="font-bold pr-2">Currencies:</span>
-                    {country.population && country.population}
+                    <span className="font-bold pr-2">Top Level Domain:</span>
+                    {country && country.tld}
                   </div>
-                      <div>
-                    <span className="font-bold pr-2">Driving cars - which side:</span>
-                    {country.population && country.population}
+                  <div className="flex gap-2">
+                    <span className="font-bold">Currencies:</span>
+                    {Object.entries(country?.currencies || {}).map(
+                      ([code, details], index, array) => (
+                        <div key={details.name}>
+                          <span>
+                            {details.symbol} {details.name} ({code})
+                            {index < array.length - 1 ? ", " : ""}
+                          </span>
+                        </div>
+                      )
+                    )}
+                  </div>
+
+                  <div>
+                    <span className="font-bold pr-2">
+                      Driving cars - which side:
+                    </span>
+                    {country.car && country.car.side}
                   </div>
                 </div>
-                
               </div>
             </div>
           </>
