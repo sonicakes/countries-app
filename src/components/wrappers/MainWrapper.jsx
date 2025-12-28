@@ -1,4 +1,3 @@
-import Nav from "../layout/Nav";
 import FilteringTools from "../filtering/FilteringTools";
 import { useState, useEffect } from "react";
 import CountriesGrid from "../layout/CountriesGrid";
@@ -34,9 +33,8 @@ const MainWrapper = () => {
 
   return (
     <>
-      <div className="mx-auto max-w-5xl px-6 lg:px-8 relative z-100 pb-8">
+      <div className="mx-auto max-w-5xl px-6 lg:px-8 relative pb-8">
         <FilteringTools filter={filter} handleChange={setFilter} />
-
         <main>
           {!countriesLoading && !error && (
             <>
@@ -48,6 +46,7 @@ const MainWrapper = () => {
           )}
           {countriesLoading && <p>loading...</p>}
         </main>
+      
       </div>
     </>
   );

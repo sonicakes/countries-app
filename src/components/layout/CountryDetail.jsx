@@ -1,17 +1,34 @@
+import ModalImage from "react-modal-image";
+const API_KEY = import.meta.env.VITE_GOOGLE_KEY;
+import map from "../../assets/map.png";
+
 const CountryDetail = ({ country }) => {
   const langCode = country && Object.keys(country.name.nativeName)[0];
   const nativeName = country && country.name.nativeName[langCode].common;
-  //todo - display coat of arms , flag & map in a little gallery aka products in a ecommerce site
   return (
-    <div className="relative text-sm flex flex-wrap md:flex-nowrap text-grey-950 pt-10 gap-5 md:gap-10 lg:gap-15">
-      <div className="relative z-20 w-full md:w-2/3 lg:w-1/2">
+    <div className="text-sm flex flex-wrap md:flex-nowrap text-grey-950 pt-10 gap-5 md:gap-10 lg:gap-15">
+      <div className="w-full w-1/2">
         <img
           src={country.flags.svg}
           alt={country.flags.alt}
           className="w-full aspect-[16/9] object-cover"
         />
+        <div className="mt-3 rounded-lg p-3 flex gap-3">
+          <ModalImage
+            className="h-30 border p-2 aspect-square object-cover rounded-lg border-grey-400/80 hover:bg-hover-card-light transition-all"
+            small={country.coatOfArms.svg}
+            large={country.coatOfArms.svg}
+            alt="coat of arms"
+          />
+          <ModalImage
+            small={`https://maps.googleapis.com/maps/api/staticmap?center=${country.name.common}&zoom=5&size=300x300&key=${API_KEY}`}
+            large={`https://maps.googleapis.com/maps/api/staticmap?center=${country.name.common}&zoom=5&size=500x500&scale=2&key=${API_KEY}`}
+            alt="Location Map"
+            className="hover:bg-hover-card-light transition-all aspect-square object-cover border p-2 h-30 rounded-lg border-grey-400/80"
+          />
+        </div>
       </div>
-      <div className="relative z-20 w-full md:w-1/3 lg:w-1/2">
+      <div className="relative z-20 w-full w-1/2">
         <h1 className="font-extrabold text-3xl">{country?.name?.common}</h1>
         <div className="flex flex-wrap lg:flex-nowrap lg:gap-4 pt-5">
           <div className="w-1/2">
@@ -71,14 +88,11 @@ const CountryDetail = ({ country }) => {
             </div>
           </div>
         </div>
-        <div>
-          <img
-            src={country.coatOfArms.svg}
-            alt="coat of arms"
-            className="w-30"
-          />
-        </div>
       </div>
+      {/* <img
+          src={map}
+          className="absolute w-full h-full inset-0 opacity-10 object-cover pointer-events-none"
+        /> */}
     </div>
   );
 };

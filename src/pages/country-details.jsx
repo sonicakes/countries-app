@@ -27,20 +27,17 @@ const CountryDetailsPage = () => {
   }, [name]);
 
   return (
-    <div className=" bg-grey-50 relative z-90 shadow-md">
-           <div className="mx-auto max-w-5xl px-6 lg:px-8 py-10">
-      <Link to="/">
-        <BackBtn />
-      </Link>
-      {/* {loading && <Spinner />} */}
-      {loading && <p>loading...</p>}
-      {error && <p className="error">{error}</p>}
-      {!loading && !error && 
-        <CountryDetail country={country} />
-      }
+    <div className="shadow-md">
+      <div className="mx-auto max-w-5xl px-6 lg:px-8 py-10">
+        <Link to="/">
+          <BackBtn />
+        </Link>
+        {/* {loading && <Spinner />} */}
+        {loading && <p>loading...</p>}
+        {error && <p className="error">{error}</p>}
+        {!loading && !error && <CountryDetail country={country} />}
+      </div>
     </div>
-    </div>
- 
   );
 };
 
