@@ -4,7 +4,7 @@ const API_KEY = import.meta.env.VITE_GOOGLE_KEY;
 const API_URL = import.meta.env.VITE_ROOT_API;
 import { Link } from "react-router";
 
-const CountryDetail = ({ country }) => {
+const CountryDetail = ({ country, mode }) => {
   const langCode = country && Object.keys(country.name.nativeName)[0];
   const nativeName = country && country.name.nativeName[langCode].common;
   const [borderCountries, setBorderCountries] = useState([]);
@@ -29,7 +29,8 @@ const CountryDetail = ({ country }) => {
     fetchBorderCountries();
   }, []);
   return (
-    <div className="text-sm flex flex-wrap md:flex-nowrap text-grey-950 pt-10 gap-5 md:gap-10 lg:gap-15">
+    <div className= {`${mode==="light" ? 'text-grey-950' : 'text-white'} text-sm flex flex-wrap md:flex-nowrap pt-10 gap-5 md:gap-10 lg:gap-15`}
+>
       <div className="w-full w-1/2">
         <img
           src={country.flags.svg}
@@ -38,7 +39,7 @@ const CountryDetail = ({ country }) => {
         />
         <div className="mt-3 rounded-lg p-3 flex gap-3">
           <ModalImage
-            className="h-30 border border-teal-primary/50 hover:bg-hover-card-light p-2 aspect-square object-cover rounded-lg hover:border-teal-primary transition-all"
+            className={`${mode==="light" ? 'hover:bg-hover-card-light' : 'hover:bg-hover-card-dark '} border-teal-primary/50 transition-all aspect-square object-cover border p-2 h-30 rounded-lg border-teal-primary`}
             small={country.coatOfArms.svg}
             large={country.coatOfArms.svg}
             alt="coat of arms"
@@ -47,7 +48,7 @@ const CountryDetail = ({ country }) => {
             small={`https://maps.googleapis.com/maps/api/staticmap?center=${country.name.common}&zoom=5&size=300x300&key=${API_KEY}`}
             large={`https://maps.googleapis.com/maps/api/staticmap?center=${country.name.common}&zoom=5&size=500x500&scale=2&key=${API_KEY}`}
             alt="Location Map"
-            className="hover:bg-hover-card-light border-teal-primary/50 transition-all aspect-square object-cover border p-2 h-30 rounded-lg border-teal-primary"
+            className={`${mode==="light" ? 'hover:bg-hover-card-light' : 'hover:bg-hover-card-dark '} border-teal-primary/50 transition-all aspect-square object-cover border p-2 h-30 rounded-lg border-teal-primary`}
           />
         </div>
       </div>
@@ -115,11 +116,10 @@ const CountryDetail = ({ country }) => {
           <div className="flex pt-5 flex-wrap leading-7">
             <span className="font-bold pr-2 pb-2">Border Countries:</span>
             <div className="flex gap-2 flex-wrap">
-              {borderCountries.map((country) => (
-                <Link to={`/country/${country}`}>
+              {borderCountries.map((country, index) => (
+                <Link to={`/country/${country}`} key={index}>
                   <div
-                    key={country}
-                    className="px-3 hover:bg-hover-card-light transition-all rounded-lg shadow-[0_0_15px_5px_rgba(0,0,0,0.1)]"
+                    className={`${mode==="light" ? 'hover:bg-hover-card-light' : 'bg-blue-900 hover:bg-hover-card-dark '} px-3  transition-all rounded-lg shadow-[0_0_15px_5px_rgba(0,0,0,0.1)]`}
                   >
                     {country}
                   </div>

@@ -1,8 +1,8 @@
 import MainWrapper from "../components/wrappers/MainWrapper";
 
-const HomePage = () => {
+const HomePage = ({mode}) => {
     return ( 
-        <MainWrapper />
+        <MainWrapper mode={mode}/>
      );
 }
  

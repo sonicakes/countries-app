@@ -1,7 +1,7 @@
 import PopulationChart from "../charts/PopulationChart";
-const DataSummary = ({ region, data }) => {
+const DataSummary = ({ region, data, mode }) => {
     return ( <>
-    <PopulationChart countriesData={data} region={region}/>
+    <PopulationChart countriesData={data} region={region} mode={mode}/>
     </> );
 }
  

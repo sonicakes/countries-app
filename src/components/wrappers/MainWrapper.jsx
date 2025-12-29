@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_ROOT_API;
 import DataSummary from "../layout/DataSummary";
 import Loader from "../ui/Loader.jsx"
 
-const MainWrapper = () => {
+const MainWrapper = ({mode}) => {
   const [countriesData, setCountriesData] = useState([]);
   const [countriesLoading, setCountriesLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -57,14 +57,15 @@ const MainWrapper = () => {
           handleChange={handleFilterChange}
           searchWord={searchInput}
           onSearch={setSearchInput}
+          mode={mode}
         />
         <main>
           {!countriesLoading && !error && (
             <>
               {filter.value != "" && (
-                <DataSummary region={filter.name} data={countriesData} />
+                <DataSummary region={filter.name} data={countriesData} mode={mode}/>
               )}
-              <CountriesGrid countriesData={filteredCountries} />
+              <CountriesGrid countriesData={filteredCountries} mode={mode}/>
             </>
           )}
           {countriesLoading && (<div className="flex justify-center">

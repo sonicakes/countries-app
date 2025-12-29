@@ -26,6 +26,7 @@
 
   /* hover */
   --color-hover-card-light: hsl(207, 26%, 96%);
+  --color-hover-card-dark: hsl(209, 23%, 28%);
 }
 
 @layer utilities {

@@ -5,7 +5,7 @@ import CountryDetail from "../components/layout/CountryDetail";
 const API_URL = import.meta.env.VITE_ROOT_API;
 import Loader from "../components/ui/Loader.jsx";
 
-const CountryDetailsPage = () => {
+const CountryDetailsPage = ({mode}) => {
   const { name } = useParams();
   const [country, setCountry] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,7 @@ const CountryDetailsPage = () => {
     <div className="shadow-md">
       <div className="mx-auto max-w-5xl px-6 lg:px-8 py-10">
         <Link to="/">
-          <BackBtn />
+          <BackBtn mode={mode}/>
         </Link>
         { loading && (
           <div className="justify-center flex">
@@ -40,7 +40,7 @@ const CountryDetailsPage = () => {
           )
           }
         {error && <p className="error">{error}</p>}
-        {!loading && !error && <CountryDetail country={country} />}
+        {!loading && !error && <CountryDetail country={country} mode={mode}/>}
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ ChartJS.defaults.font.family = "Nunito Sans, sans-serif";
 ChartJS.defaults.font.size = 14;
 ChartJS.defaults.color = "hsl(200, 15%, 8%)";
 
-const PopulationChart = ({ countriesData, region }) => {
+const PopulationChart = ({ countriesData, region, mode }) => {
   const topTenCountries = [...countriesData]
     .sort((a, b) => b.population - a.population)
     .slice(0, 10);
@@ -35,6 +35,9 @@ const PopulationChart = ({ countriesData, region }) => {
     return country.name.common;
   });
 
+  const textColor = mode === "light" ? "#000" : "#fff";
+  const gridColor =
+    mode === "light" ? "rgba(0, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)";
   const data = {
     labels: countriesNames,
     datasets: [
@@ -57,6 +60,20 @@ const PopulationChart = ({ countriesData, region }) => {
     scales: {
       x: {
         beginAtZero: true,
+        ticks: {
+          color: textColor,
+        },
+        grid: {
+          color: gridColor, 
+        },
+      },
+      y: {
+        ticks: {
+          color: textColor,
+        },
+        grid: {
+          color: gridColor, 
+        },
       },
     },
     plugins: {
@@ -73,6 +90,7 @@ const PopulationChart = ({ countriesData, region }) => {
           bottom: 20,
         },
         text: `Top 10 Countries by Population in ${region}`,
+        color: textColor,
       },
     },
   };

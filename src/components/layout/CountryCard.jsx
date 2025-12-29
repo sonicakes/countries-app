@@ -1,12 +1,13 @@
 import { Link } from "react-router";
 
-const CountryCard = ({ country }) => {
+const CountryCard = ({ country, mode }) => {
   return (
     <Link
       className="h-full flex flex-col text-grey-950"
       to={`/country/${country.name.common}`}
     >
-      <div className="bg-white flex-grow hover:bg-hover-card-light cursor-pointer border border-transparent transition-all hover:border-teal-primary shadow-md rounded-lg">
+      <div className={`${mode==="light" ? 'bg-white hover:bg-hover-card-light' : 'bg-blue-900 text-white hover:bg-hover-card-dark'} flex-grow  cursor-pointer border border-transparent transition-all hover:border-teal-primary shadow-md rounded-lg`}
+>
         <img
           src={country.flags.svg}
           className="w-full aspect-[16/9] object-cover rounded-t-lg"

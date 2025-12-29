@@ -1,4 +1,4 @@
-const SelectDropdown = ({ filter, handleChange }) => {
+const SelectDropdown = ({ filter, handleChange, mode }) => {
   const regions = [
     { name: "Filter by region", value: "" },
     { name: "Africa", value: "Africa" },
@@ -20,7 +20,8 @@ const SelectDropdown = ({ filter, handleChange }) => {
           value: e.target.value,
         });
       }}
-      className="bg-white shadow-md py-2 px-4 rounded-lg font-medium"
+      className=
+      {`${mode==="light" ? 'bg-white' : 'bg-blue-900 text-white'} shadow-md py-2 px-4 rounded-lg font-medium`}
     >
       {regions.map((region) => (
         <option key={region.name} value={region.value}>
