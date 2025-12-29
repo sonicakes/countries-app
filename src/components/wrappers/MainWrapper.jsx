@@ -9,6 +9,7 @@ const MainWrapper = () => {
   const [countriesLoading, setCountriesLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState({ name: "Filter by region", value: "" });
+  const [searchInput, setSearchInput] = useState("");
   const apiEnd =
     filter.value === ""
       ? "/independent?status=true"
@@ -29,24 +30,44 @@ const MainWrapper = () => {
     };
 
     fetchCountries();
-  }, [filter]);
+  }, [filter, searchInput]);
+    
+  const handleFilterChange = (val) => {
+    setFilter(val);
+    setSearchInput('');
+  }
+
+  const filteredCountries = countriesData.filter((country) => {
+    return (
+      country.name.common
+        .toLowerCase()
+        .includes(searchInput.toLocaleLowerCase()) ||
+      country.name.official
+        .toLowerCase()
+        .includes(searchInput.toLocaleLowerCase())
+    );
+  });
 
   return (
     <>
       <div className="mx-auto max-w-5xl px-6 lg:px-8 relative pb-8">
-        <FilteringTools filter={filter} handleChange={setFilter} />
+        <FilteringTools
+          filter={filter}
+          handleChange={handleFilterChange}
+          searchWord={searchInput}
+          onSearch={setSearchInput}
+        />
         <main>
           {!countriesLoading && !error && (
             <>
               {filter.value != "" && (
                 <DataSummary region={filter.name} data={countriesData} />
               )}
-              <CountriesGrid countriesData={countriesData} />
+              <CountriesGrid countriesData={filteredCountries} />
             </>
           )}
           {countriesLoading && <p>loading...</p>}
         </main>
-      
       </div>
     </>
   );

@@ -1,5 +1,9 @@
 import iconSearch from "../../assets/search.png";
-const SearchInput = ({ name, value, placeholder, onInputChange }) => {
+const SearchInput = ({ 
+  name, 
+  value, 
+  placeholder,
+  onInputChange }) => {
   return (
     <div className="relative w-full md:w-100">
       <img
@@ -15,7 +19,7 @@ const SearchInput = ({ name, value, placeholder, onInputChange }) => {
         aria-label="Search"
         name={name}
         value={value}
-        onChange={onInputChange}
+        onChange={(e) => onInputChange(e.target.value)}
       />
     </div>
   );
