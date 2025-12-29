@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import BackBtn from "../components/ui/BackBtn";
 import CountryDetail from "../components/layout/CountryDetail";
 const API_URL = import.meta.env.VITE_ROOT_API;
+import Loader from "../components/ui/Loader.jsx";
 
 const CountryDetailsPage = () => {
   const { name } = useParams();
@@ -32,8 +33,12 @@ const CountryDetailsPage = () => {
         <Link to="/">
           <BackBtn />
         </Link>
-        {/* {loading && <Spinner />} */}
-        {loading && <p>loading...</p>}
+        { loading && (
+          <div className="justify-center flex">
+            <Loader />
+          </div>
+          )
+          }
         {error && <p className="error">{error}</p>}
         {!loading && !error && <CountryDetail country={country} />}
       </div>

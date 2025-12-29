@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import CountriesGrid from "../layout/CountriesGrid";
 const API_URL = import.meta.env.VITE_ROOT_API;
 import DataSummary from "../layout/DataSummary";
-
+import Loader from "../ui/Loader.jsx"
 const MainWrapper = () => {
   const [countriesData, setCountriesData] = useState([]);
   const [countriesLoading, setCountriesLoading] = useState(true);
@@ -66,7 +66,9 @@ const MainWrapper = () => {
               <CountriesGrid countriesData={filteredCountries} />
             </>
           )}
-          {countriesLoading && <p>loading...</p>}
+          {countriesLoading && (<div className="flex justify-center">
+            <Loader />
+            </div>)}
         </main>
       </div>
     </>
