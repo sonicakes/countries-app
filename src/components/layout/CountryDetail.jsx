@@ -1,10 +1,33 @@
+import { useState, useEffect } from "react";
 import ModalImage from "react-modal-image";
 const API_KEY = import.meta.env.VITE_GOOGLE_KEY;
-import map from "../../assets/map.png";
+const API_URL = import.meta.env.VITE_ROOT_API;
+import { Link } from "react-router";
 
 const CountryDetail = ({ country }) => {
   const langCode = country && Object.keys(country.name.nativeName)[0];
   const nativeName = country && country.name.nativeName[langCode].common;
+  const [borderCountries, setBorderCountries] = useState([]);
+
+  useEffect(() => {
+    const fetchBorderCountries = async () => {
+      try {
+        const res = await fetch(
+          `${API_URL}/alpha?codes=${country.borders.join(",")}`
+        );
+        if (!res.ok) throw new Error("error border country");
+        const data = await res.json();
+        const borderNames = data.map((country) => country.name.common);
+        setBorderCountries(borderNames);
+        console.log(borderNames);
+      } catch (err) {
+        // setError(err);
+      } finally {
+        // setLoading(false);
+      }
+    };
+    fetchBorderCountries();
+  }, []);
   return (
     <div className="text-sm flex flex-wrap md:flex-nowrap text-grey-950 pt-10 gap-5 md:gap-10 lg:gap-15">
       <div className="w-full w-1/2">
@@ -15,7 +38,7 @@ const CountryDetail = ({ country }) => {
         />
         <div className="mt-3 rounded-lg p-3 flex gap-3">
           <ModalImage
-            className="h-30 border p-2 aspect-square object-cover rounded-lg border-grey-400/80 hover:bg-hover-card-light transition-all"
+            className="h-30 border border-teal-primary/50 hover:bg-hover-card-light p-2 aspect-square object-cover rounded-lg hover:border-teal-primary transition-all"
             small={country.coatOfArms.svg}
             large={country.coatOfArms.svg}
             alt="coat of arms"
@@ -24,13 +47,13 @@ const CountryDetail = ({ country }) => {
             small={`https://maps.googleapis.com/maps/api/staticmap?center=${country.name.common}&zoom=5&size=300x300&key=${API_KEY}`}
             large={`https://maps.googleapis.com/maps/api/staticmap?center=${country.name.common}&zoom=5&size=500x500&scale=2&key=${API_KEY}`}
             alt="Location Map"
-            className="hover:bg-hover-card-light transition-all aspect-square object-cover border p-2 h-30 rounded-lg border-grey-400/80"
+            className="hover:bg-hover-card-light border-teal-primary/50 transition-all aspect-square object-cover border p-2 h-30 rounded-lg border-teal-primary"
           />
         </div>
       </div>
       <div className="relative z-20 w-full w-1/2">
         <h1 className="font-extrabold text-3xl">{country?.name?.common}</h1>
-        <div className="flex flex-wrap lg:flex-nowrap lg:gap-4 pt-5">
+        <div className="flex md:flex-wrap lg:flex-nowrap gap-2 lg:gap-4 pt-5">
           <div className="w-1/2">
             <div className="leading-7">
               <span className="font-bold pr-2">Native name:</span>
@@ -88,11 +111,24 @@ const CountryDetail = ({ country }) => {
             </div>
           </div>
         </div>
+        {borderCountries.length > 0 && (
+          <div className="flex pt-5 flex-wrap leading-7">
+            <span className="font-bold pr-2 pb-2">Border Countries:</span>
+            <div className="flex gap-2 flex-wrap">
+              {borderCountries.map((country) => (
+                <Link to={`/country/${country}`}>
+                  <div
+                    key={country}
+                    className="px-3 hover:bg-hover-card-light transition-all rounded-lg shadow-[0_0_15px_5px_rgba(0,0,0,0.1)]"
+                  >
+                    {country}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-      {/* <img
-          src={map}
-          className="absolute w-full h-full inset-0 opacity-10 object-cover pointer-events-none"
-        /> */}
     </div>
   );
 };
