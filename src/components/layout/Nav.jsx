@@ -13,13 +13,12 @@ const Nav = ({ mode, onChangeMode }) => {
         <div className="flex justify-between items-center">
           <Link to="/">
             <div className="flex items-center gap-2 py-2">
-              <img src={logo} className="w-10" />
-              <span className="text-xl font-bold tracking-wide">
+              <img src={logo} className="w-7 lg:w-10" />
+              <span className=" text-base lg:text-xl font-bold tracking-wide">
                 Where in the world?
               </span>
             </div>
           </Link>
-
           <ModeSwitch mode={mode} onChangeMode={onChangeMode} />
         </div>
       </div>
